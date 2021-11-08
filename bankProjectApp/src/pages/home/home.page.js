@@ -93,7 +93,10 @@ const Home = props => {
                     </Text>
                 </View>
                 <View style={{ marginRight: "5%" }}>
-                    <TouchableOpacity style={{ justifyContent: "center", alignItems: "center" }}>
+                    <TouchableOpacity
+                        style={{ justifyContent: "center", alignItems: "center" }}
+                        onPress={() => props.navigation.navigate("RegisterDeposit")}
+                    >
                         <FontAwesome5
                             name="plus"
                             size={25}

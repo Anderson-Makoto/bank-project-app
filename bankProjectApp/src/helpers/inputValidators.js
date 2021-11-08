@@ -13,4 +13,20 @@ const passwordValidation = pass => {
     return re.test(pass)
 }
 
-export { emailValidation, nameValidation, passwordValidation }
+const amountValidation = pass => {
+    var re = /^\d{1,9}(\,(\d){1,2}){0,1}$/
+    return re.test(pass)
+}
+
+const descriptionValidation = pass => {
+    var re = /^([A-Za-z0-9]{1,}\s)*[A-Za-z0-9]{1,}$/
+    return re.test(pass)
+}
+
+export {
+    emailValidation,
+    nameValidation,
+    passwordValidation,
+    amountValidation,
+    descriptionValidation
+}
