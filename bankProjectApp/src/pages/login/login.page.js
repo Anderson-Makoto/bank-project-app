@@ -19,7 +19,7 @@ const Login = props => {
                 AsyncStorage.setItem("userData", JSON.stringify(userLoginRes)).then(() => {
                     props.navigation.reset({
                         index: 0,
-                        routes: [{ name: userLoginRes.data.user.is_admin ? "AdminHome" : "Home" }]
+                        routes: [{ name: userLoginRes.data.user.is_admin ? "AdminHome" : "Drawer" }]
                     })
                 })
             }).catch(err => {

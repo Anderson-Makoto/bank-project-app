@@ -33,4 +33,17 @@ const userLogin = (email, password) => {
     })
 }
 
-export { userCreate, userLogin }
+const getBalance = (token) => {
+    return axios.get(BASE_URL + "/user/getBalance", {
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        }
+    }).then(response => {
+        return response.data
+    }).catch(error => {
+        throw error.response.data
+    })
+}
+
+export { userCreate, userLogin, getBalance }
