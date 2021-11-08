@@ -39,7 +39,7 @@ const Register = props => {
                     })
                 })
             }).catch(err => {
-                console.log(err)
+                simpleAlert("Error", err.description)
             })
         }
 
