@@ -4,7 +4,6 @@ import { NavigationContainer } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { createDrawerNavigator } from "@react-navigation/drawer"
-import { colors } from "./helpers/constants"
 
 import Login from "./pages/login/login.page"
 import Register from "./pages/register/register.page"
@@ -13,7 +12,7 @@ import Home from "./pages/home/home.page"
 import Deposits from "./pages/deposits/deposits.page"
 import Purchases from "./pages/purchases/purchases.page"
 import DrawerContent from "./sharedComponents/drawerContent/drawerContent.component"
-
+import RegisterDeposit from "./pages/registerDeposit/registerDeposit.page"
 
 const App = () => {
   const [page, setPage] = useState("Loading")
@@ -82,6 +81,10 @@ const DrawerNavigator = () => {
       <Drawer.Screen
         name="Checks"
         component={Deposits}
+      ></Drawer.Screen>
+      <Drawer.Screen
+        name="RegisterDeposit"
+        component={RegisterDeposit}
       ></Drawer.Screen>
     </Drawer.Navigator>
   )
