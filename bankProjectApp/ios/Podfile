@@ -12,6 +12,8 @@ target 'bankProjectApp' do
     :hermes_enabled => false
   )
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'bankProjectAppTests' do
     inherit! :complete
     # Pods for testing

@@ -7,12 +7,14 @@ import { createDrawerNavigator } from "@react-navigation/drawer"
 
 import Login from "./pages/login/login.page"
 import Register from "./pages/register/register.page"
-import AdminHome from "./pages/adminHome/adminHome.page"
 import Home from "./pages/home/home.page"
 import Deposits from "./pages/deposits/deposits.page"
 import Purchases from "./pages/purchases/purchases.page"
 import DrawerContent from "./sharedComponents/drawerContent/drawerContent.component"
 import RegisterDeposit from "./pages/registerDeposit/registerDeposit.page"
+import AdminDrawerContent from "./sharedComponents/adminDrawerContent/adminDrawerContent.component"
+import AdminDepositApprove from "./pages/adminDepositApprove/adminDepositApprove.page"
+import AdminHome from "./pages/adminHome/adminHome.page"
 
 const App = () => {
   const [page, setPage] = useState("Loading")
@@ -48,8 +50,8 @@ const App = () => {
           component={DrawerNavigator}
         ></Stack.Screen>
         <Stack.Screen
-          name="AdminHome"
-          component={AdminHome}
+          name="AdminDrawer"
+          component={AdminDrawerNavigator}
         ></Stack.Screen>
         <Stack.Screen
           name="Register"
@@ -60,8 +62,32 @@ const App = () => {
   )
 }
 
+const AdminDrawerNavigator = () => {
+  const Drawer = __createNavigationDrawer()
+
+  return (
+    <Drawer.Navigator
+      initialRouteName="AdminHome"
+      screenOptions={{
+        headerShown: false
+      }}
+      drawerContent={props => <AdminDrawerContent {...props}></AdminDrawerContent>}
+    >
+      <Drawer.Screen
+        name="AdminHome"
+        component={AdminHome}
+      ></Drawer.Screen>
+      <Drawer.Screen
+        name="AdminDepositApprove"
+        component={AdminDepositApprove}
+      ></Drawer.Screen>
+    </Drawer.Navigator>
+  )
+}
+
 const DrawerNavigator = () => {
   const Drawer = __createNavigationDrawer()
+
   return (
     <Drawer.Navigator
       initialRouteName="Home"
@@ -98,11 +124,11 @@ const __createNavigationDrawer = () => {
   return createDrawerNavigator()
 }
 
-const __verifyIfIsLogged = setPage => {
+const __verifyIfIsLogged = (setPage) => {
   AsyncStorage.getItem("userData").then(userData => {
     userData = JSON.parse(userData)
     if (userData && userData.data) {
-      setPage(userData.data.user.is_admin ? "AdminHome" : "Drawer")
+      setPage(userData.data.user.is_admin ? "AdminDrawer" : "Drawer")
     } else {
       setPage("Register")
     }

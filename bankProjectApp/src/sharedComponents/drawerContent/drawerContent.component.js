@@ -1,12 +1,28 @@
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer"
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { View, Text } from "react-native"
 import { Drawer } from "react-native-paper"
 import styles from "./drawerContent.style"
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 import { colors } from "../../helpers/constants"
+import { simpleAlert } from "../../helpers/alert"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 const DrawerContent = props => {
+    const [state, setState] = useState({
+        isAdmin: true
+    })
+
+    useEffect(() => {
+        AsyncStorage.getItem("userData").then(userData => {
+            userData = JSON.parse(userData)
+
+            setState({
+                isAdmin: userData.data.user.is_admin
+            })
+        })
+    })
+
     return (
         <View style={styles.container}>
             <View style={styles.menuTitle}>
@@ -25,37 +41,51 @@ const DrawerContent = props => {
                     }}
                     label="BALANCE"
                     labelStyle={styles.itemLabel}
-                    onPress={() => props.navigation.navigate("Home")}
+                    onPress={() => state.isAdmin ?
+                        simpleAlert("Attention", "You need to be a customer to access this page") :
+                        props.navigation.navigate("Home")
+                    }
                 ></DrawerItem>
                 <DrawerItem
                     label="INCOMES"
                     labelStyle={styles.itemLabel}
+                    onPress={() => simpleAlert("Attention", "Out of Scope")}
                 ></DrawerItem>
                 <DrawerItem
                     label="EXPENSES"
                     labelStyle={styles.itemLabel}
-                    onPress={() => props.navigation.navigate("Expenses")}
+                    onPress={() => state.isAdmin ?
+                        simpleAlert("Attention", "You need to be a customer to access this page") :
+                        props.navigation.navigate("Expenses")
+                    }
                 ></DrawerItem>
                 <DrawerItem
                     label="CHECKS"
                     labelStyle={styles.itemLabel}
-                    onPress={() => props.navigation.navigate("Checks")}
+                    onPress={() => state.isAdmin ?
+                        simpleAlert("Attention", "You need to be a customer to access this page") :
+                        props.navigation.navigate("Checks")
+                    }
                 ></DrawerItem>
                 <DrawerItem
                     label="NOTIFICATIONS"
                     labelStyle={styles.itemLabel}
+                    onPress={() => simpleAlert("Attention", "Out of Scope")}
                 ></DrawerItem>
                 <DrawerItem
                     label="PROFILE"
                     labelStyle={styles.itemLabel}
+                    onPress={() => simpleAlert("Attention", "Out of Scope")}
                 ></DrawerItem>
                 <DrawerItem
                     label="SETTINGS"
                     labelStyle={styles.itemLabel}
+                    onPress={() => simpleAlert("Attention", "Out of Scope")}
                 ></DrawerItem>
                 <DrawerItem
                     label="HELP"
                     labelStyle={styles.itemLabel}
+                    onPress={() => simpleAlert("Attention", "Out of Scope")}
                 ></DrawerItem>
             </Drawer.Section>
         </View>

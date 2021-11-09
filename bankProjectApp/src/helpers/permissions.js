@@ -1,4 +1,5 @@
 import { PermissionsAndroid } from "react-native"
+import { simpleAlert } from "./alert";
 
 const storageReadPermission = async (funcYes, funcNo = () => { }) => {
     try {
@@ -19,7 +20,7 @@ const storageReadPermission = async (funcYes, funcNo = () => { }) => {
             funcNo()
         }
     } catch (err) {
-        () => console.log(err)
+        simpleAlert("Error", "Could not grant permission")
     }
 
 }
