@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { View, TouchableOpacity, Text, ImageBackground, TextInput } from "react-native"
 import TextInputMask from "react-native-text-input-mask"
 import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5"
@@ -19,6 +19,10 @@ const RegisterDeposit = props => {
         balance: 0,
         description: ""
     })
+
+    useEffect(() => {
+        __getBalance(setState)
+    }, [])
 
     const getImage = () => {
         launchImageLibrary({
@@ -42,7 +46,6 @@ const RegisterDeposit = props => {
         const isInputValid = __validateInput(state)
 
         if (isInputValid) {
-            // __callRegisterDepositRoute(state)
             confirmationAlert("Deposit", "Confirm deposit?", () => __callRegisterDepositRoute(state))
         }
     }
@@ -73,7 +76,7 @@ const RegisterDeposit = props => {
                         Current balance
                     </Text>
                     <Text style={styles.balanceValue}>
-                        ${String((parseFloat("100.00").toFixed(2))).replace(".", ",")}
+                        ${String((parseFloat(state.balance).toFixed(2))).replace(".", ",")}
                     </Text>
                 </View>
             </View>
@@ -133,6 +136,18 @@ const RegisterDeposit = props => {
         </View>
 
     )
+}
+
+const __getBalance = async setState => {
+    userData = await __getUserData()
+    return getBalance(userData.token).then(getBalanceRes => {
+        setState({
+            ...setState,
+            balance: getBalanceRes.data
+        })
+    }).catch(err => {
+        simpleAlert("Error", err.description)
+    })
 }
 
 const __validateInput = state => {
