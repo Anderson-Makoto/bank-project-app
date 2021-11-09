@@ -47,7 +47,7 @@ const RegisterDeposit = props => {
         const isInputValid = __validateInput(state)
 
         if (isInputValid) {
-            confirmationAlert("Deposit", "Confirm deposit?", () => __callRegisterDepositRoute(state))
+            confirmationAlert("Deposit", "Confirm deposit?", () => __callRegisterDepositRoute(state, props.navigation))
         }
     }
 
@@ -169,7 +169,7 @@ const __validateInput = state => {
     return true
 }
 
-const __callRegisterDepositRoute = async state => {
+const __callRegisterDepositRoute = async (state, navigation) => {
     const userData = await __getUserData()
 
     registerDepositPending(
@@ -180,8 +180,10 @@ const __callRegisterDepositRoute = async state => {
         userData.token
     ).then(registerDepositRes => {
         simpleAlert("Success!", "The deposit will be analyzed by the admin")
+
     }).catch(err => {
         simpleAlert("Error", err.description)
+        navigation.goBack()
     })
 }
 
