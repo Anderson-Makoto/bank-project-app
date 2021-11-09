@@ -11,6 +11,7 @@ import { confirmationAlert, simpleAlert } from "../../helpers/alert"
 import { amountValidation, descriptionValidation } from "../../helpers/inputValidators"
 import { registerDepositPending } from "../../routes/deposit.route"
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import { getBalance } from "../../routes/user.route"
 
 const RegisterDeposit = props => {
     const [state, setState] = useState({
@@ -141,6 +142,7 @@ const RegisterDeposit = props => {
 const __getBalance = async setState => {
     userData = await __getUserData()
     return getBalance(userData.token).then(getBalanceRes => {
+        console.log(getBalanceRes)
         setState({
             ...setState,
             balance: getBalanceRes.data
