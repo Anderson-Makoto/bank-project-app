@@ -15,6 +15,7 @@ import RegisterDeposit from "./pages/registerDeposit/registerDeposit.page"
 import AdminDrawerContent from "./sharedComponents/adminDrawerContent/adminDrawerContent.component"
 import AdminDepositApprove from "./pages/adminDepositApprove/adminDepositApprove.page"
 import AdminHome from "./pages/adminHome/adminHome.page"
+import RegisterPurchase from "./pages/registerPurchase/registerPurchase.page"
 
 const App = () => {
   const [page, setPage] = useState("Loading")
@@ -103,14 +104,30 @@ const DrawerNavigator = () => {
       <Drawer.Screen
         name="Expenses"
         component={Purchases}
+        options={{
+          unmountOnBlur: true
+        }}
       ></Drawer.Screen>
       <Drawer.Screen
         name="Checks"
         component={Deposits}
+        options={{
+          unmountOnBlur: true
+        }}
       ></Drawer.Screen>
       <Drawer.Screen
         name="RegisterDeposit"
         component={RegisterDeposit}
+        options={{
+          unmountOnBlur: true
+        }}
+      ></Drawer.Screen>
+      <Drawer.Screen
+        name="RegisterPurchase"
+        component={RegisterPurchase}
+        options={{
+          unmountOnBlur: true
+        }}
       ></Drawer.Screen>
     </Drawer.Navigator>
   )

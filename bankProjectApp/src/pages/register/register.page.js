@@ -35,7 +35,7 @@ const Register = props => {
                 AsyncStorage.setItem("userData", JSON.stringify(userCreateRes)).then(() => {
                     props.navigation.reset({
                         index: 0,
-                        routes: [{ name: "Home" }]
+                        routes: [{ name: "Drawer" }]
                     })
                 })
             }).catch(err => {
