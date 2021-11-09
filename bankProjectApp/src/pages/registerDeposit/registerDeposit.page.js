@@ -11,6 +11,7 @@ import { confirmationAlert, simpleAlert } from "../../helpers/alert"
 import { amountValidation, descriptionValidation } from "../../helpers/inputValidators"
 import { registerDepositPending } from "../../routes/deposit.route"
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import { getBalance } from "../../routes/user.route"
 
 const RegisterDeposit = props => {
     const [state, setState] = useState({
@@ -46,7 +47,7 @@ const RegisterDeposit = props => {
         const isInputValid = __validateInput(state)
 
         if (isInputValid) {
-            confirmationAlert("Deposit", "Confirm deposit?", () => __callRegisterDepositRoute(state))
+            confirmationAlert("Deposit", "Confirm deposit?", () => __callRegisterDepositRoute(state, props.navigation))
         }
     }
 
@@ -141,6 +142,7 @@ const RegisterDeposit = props => {
 const __getBalance = async setState => {
     userData = await __getUserData()
     return getBalance(userData.token).then(getBalanceRes => {
+        console.log(getBalanceRes)
         setState({
             ...setState,
             balance: getBalanceRes.data
@@ -167,7 +169,7 @@ const __validateInput = state => {
     return true
 }
 
-const __callRegisterDepositRoute = async state => {
+const __callRegisterDepositRoute = async (state, navigation) => {
     const userData = await __getUserData()
 
     registerDepositPending(
@@ -178,8 +180,10 @@ const __callRegisterDepositRoute = async state => {
         userData.token
     ).then(registerDepositRes => {
         simpleAlert("Success!", "The deposit will be analyzed by the admin")
+
     }).catch(err => {
         simpleAlert("Error", err.description)
+        navigation.goBack()
     })
 }
 

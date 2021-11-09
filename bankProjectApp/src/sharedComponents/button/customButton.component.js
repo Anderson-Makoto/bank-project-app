@@ -1,6 +1,7 @@
 import React from "react"
 import { TouchableOpacity, Text } from "react-native"
 import styles from "./customButton.style"
+import PropTypes from "prop-types"
 
 const CustomButton = props => {
     return (
@@ -17,6 +18,13 @@ const CustomButton = props => {
             </Text>
         </TouchableOpacity>
     )
+}
+
+CustomButton.propTypes = {
+    height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+    onPress: PropTypes.func.isRequired,
+    text: PropTypes.string.isRequired
 }
 
 export default CustomButton
