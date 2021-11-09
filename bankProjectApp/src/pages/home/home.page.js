@@ -9,9 +9,11 @@ import { getBalance } from "../../routes/user.route"
 import styles from "./home.style"
 import MonthPicker from "react-native-month-year-picker"
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5"
+import { useIsFocused } from "@react-navigation/native"
 var moment = require('moment')
 
 const Home = props => {
+    const isFocused = useIsFocused()
     const [state, setState] = useState({
         incomes: 0,
         expenses: 0,
@@ -22,8 +24,8 @@ const Home = props => {
     })
 
     useEffect(() => {
-        __loadData(state, setState)
-    }, [])
+        if (isFocused) __loadData(state, setState)
+    }, [isFocused])
 
     const allowDatePicker = () => {
         setState({

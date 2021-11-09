@@ -51,9 +51,55 @@ const registerDepositPending = (
     }).then(response => {
         return response.data
     }).catch(error => {
-        console.log(error.response.data)
         throw error.response.data
     })
 }
 
-export { getApprovedDepositsByMonth, registerDepositPending }
+const getAllPendingDeposits = token => {
+    return axios.get(BASE_URL + "/deposit/getPendingDeposits", {
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        }
+    }).then(response => {
+        return response.data
+    }).catch(error => {
+        throw error.response.data
+    })
+}
+
+const getDepositDetails = (depositId, customerId, token) => {
+    return axios.get(BASE_URL + `/deposit/getDepositDetailsbyId/${depositId}/${customerId}`, {
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        }
+    }).then(response => {
+        return response.data
+    }).catch(error => {
+        throw error.response.data
+    })
+}
+
+const changeDepositStatus = (customerId, status, depositId, token) => {
+    return (
+        axios.get(BASE_URL + `/deposit/changeDepositStatus/${depositId}/${status}/${customerId}`, {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        }).then(response => {
+            return response.data
+        }).catch(error => {
+            throw error.response.data
+        })
+    )
+}
+
+export {
+    getApprovedDepositsByMonth,
+    registerDepositPending,
+    getAllPendingDeposits,
+    getDepositDetails,
+    changeDepositStatus
+}
