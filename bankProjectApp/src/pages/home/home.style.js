@@ -10,19 +10,60 @@ const styles = StyleSheet.create({
     title: {
         height: "10%",
         width: "100%",
-        backgroundColor: colors.BLUE_2,
+    },
+    dataView: {
+        height: "10%",
+        width: "100%",
         flexDirection: "row",
+        justifyContent: "space-between",
+        paddingHorizontal: "5%",
         alignItems: "center"
     },
+    leftContent: {
+        height: "100%",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "flex-start"
+    },
+    label: {
+        fontSize: 10,
+        fontWeight: "bold"
+    },
+    balanceValue: {
+        fontSize: 20,
+        color: colors.WHITE
+    },
+    value: {
+        fontSize: 15
+    },
+    rightContent: {
+        height: "100%",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "flex-end"
+    },
+    dateText: {
+        color: colors.WHITE,
+        fontSize: 15
+    },
+    incomesAndExpensesValues: {
+        fontSize: 15
+    },
+    dateView: {
+        flexDirection: "row"
+    },
+
+
+
     lineView: {
         height: "10%",
         width: "100%",
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        paddingHorizontal: "5%"
     },
     text1: {
-        fontWeight: "bold",
         fontSize: 12
     },
     balanceValue: {
@@ -33,10 +74,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
-    dateText: {
-        color: colors.WHITE,
-        fontSize: 15
-    },
+
     transactionText: {
         color: colors.BLUE_1,
         fontSize: 20

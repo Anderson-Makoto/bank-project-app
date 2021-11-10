@@ -7,6 +7,7 @@ import Icon from "react-native-vector-icons/FontAwesome5"
 import { confirmationAlert, simpleAlert } from "../../helpers/alert"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { userLogout } from "../../routes/user.route"
+import { colors } from "../../helpers/constants"
 
 const DrawerContent = props => {
     const [state, setState] = useState({
@@ -48,11 +49,14 @@ const DrawerContent = props => {
             <Drawer.Section style={styles.content}>
                 <DrawerItem
                     icon={({ color, size }) => {
-                        <Icon
-                            name="exit-to-app"
-                            color={color}
-                            size={size}
-                        ></Icon>
+                        return (
+                            <Icon
+                                style={{ width: "20%" }}
+                                name="balance-scale-right"
+                                color={colors.WHITE}
+                                size={size}
+                            ></Icon>
+                        )
                     }}
                     label="BALANCE"
                     labelStyle={styles.itemLabel}
@@ -62,11 +66,31 @@ const DrawerContent = props => {
                     }
                 ></DrawerItem>
                 <DrawerItem
+                    icon={({ color, size }) => {
+                        return (
+                            <Icon
+                                style={{ width: "20%" }}
+                                name="level-up-alt"
+                                color={colors.WHITE}
+                                size={size}
+                            ></Icon>
+                        )
+                    }}
                     label="INCOMES"
                     labelStyle={styles.itemLabel}
                     onPress={() => simpleAlert("Attention", "Out of Scope")}
                 ></DrawerItem>
                 <DrawerItem
+                    icon={({ color, size }) => {
+                        return (
+                            <Icon
+                                style={{ width: "20%" }}
+                                name="level-down-alt"
+                                color={colors.WHITE}
+                                size={size}
+                            ></Icon>
+                        )
+                    }}
                     label="EXPENSES"
                     labelStyle={styles.itemLabel}
                     onPress={() => state.isAdmin ?
@@ -75,6 +99,16 @@ const DrawerContent = props => {
                     }
                 ></DrawerItem>
                 <DrawerItem
+                    icon={({ color, size }) => {
+                        return (
+                            <Icon
+                                style={{ width: "20%" }}
+                                name="money-check"
+                                color={colors.WHITE}
+                                size={size}
+                            ></Icon>
+                        )
+                    }}
                     label="CHECKS"
                     labelStyle={styles.itemLabel}
                     onPress={() => state.isAdmin ?
@@ -83,26 +117,81 @@ const DrawerContent = props => {
                     }
                 ></DrawerItem>
                 <DrawerItem
+                    icon={({ color, size }) => {
+                        return (
+                            <Icon
+                                style={{ width: "20%" }}
+                                name="bell"
+                                solid
+                                color={colors.WHITE}
+                                size={size}
+                            ></Icon>
+                        )
+                    }}
                     label="NOTIFICATIONS"
                     labelStyle={styles.itemLabel}
                     onPress={() => simpleAlert("Attention", "Out of Scope")}
                 ></DrawerItem>
                 <DrawerItem
+                    icon={({ color, size }) => {
+                        return (
+                            <Icon
+                                style={{ width: "20%" }}
+                                name="user"
+                                solid
+                                color={colors.WHITE}
+                                size={size}
+                            ></Icon>
+                        )
+                    }}
                     label="PROFILE"
                     labelStyle={styles.itemLabel}
                     onPress={() => simpleAlert("Attention", "Out of Scope")}
                 ></DrawerItem>
                 <DrawerItem
+                    icon={({ color, size }) => {
+                        return (
+                            <Icon
+                                style={{ width: "20%" }}
+                                name="cog"
+                                solid
+                                color={colors.WHITE}
+                                size={size}
+                            ></Icon>
+                        )
+                    }}
                     label="SETTINGS"
                     labelStyle={styles.itemLabel}
                     onPress={() => simpleAlert("Attention", "Out of Scope")}
                 ></DrawerItem>
                 <DrawerItem
+                    icon={({ color, size }) => {
+                        return (
+                            <Icon
+                                style={{ width: "20%" }}
+                                name="question-circle"
+                                solid
+                                color={colors.WHITE}
+                                size={size}
+                            ></Icon>
+                        )
+                    }}
                     label="HELP"
                     labelStyle={styles.itemLabel}
                     onPress={() => simpleAlert("Attention", "Out of Scope")}
                 ></DrawerItem>
                 <DrawerItem
+                    icon={({ color, size }) => {
+                        return (
+                            <Icon
+                                style={{ width: "20%" }}
+                                name="sign-out-alt"
+                                solid
+                                color={colors.WHITE}
+                                size={size}
+                            ></Icon>
+                        )
+                    }}
                     label="LOGOUT"
                     labelStyle={styles.itemLabel}
                     onPress={() => confirmationAlert("Logout", "Are you sure you wanto to logout?", () => logout())}

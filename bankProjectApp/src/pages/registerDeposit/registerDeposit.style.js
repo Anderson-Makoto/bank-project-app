@@ -15,6 +15,21 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center"
     },
+    amountView: {
+        flexDirection: "row",
+        height: "33%",
+        width: "100%",
+        justifyContent: "space-between",
+        alignItems: "center"
+
+    },
+    valuesView: {
+        height: "35%",
+        width: "100%",
+        justifyContent: "flex-end",
+        flexDirection: "column",
+        paddingHorizontal: "5%",
+    },
     lineView: {
         height: "10%",
         width: "100%",
@@ -29,12 +44,6 @@ const styles = StyleSheet.create({
     balanceValue: {
         color: colors.BLUE_1,
         fontSize: 15,
-    },
-    amountView: {
-        height: "45%",
-        width: "100%",
-        justifyContent: "flex-end",
-        paddingHorizontal: "5%",
     },
     input: {
         flexDirection: "row",
@@ -61,7 +70,7 @@ const styles = StyleSheet.create({
         fontSize: 12
     },
     imageView: {
-        height: "25%",
+        height: "35%",
         marginTop: "10%",
         width: "100%",
         paddingHorizontal: "5%"

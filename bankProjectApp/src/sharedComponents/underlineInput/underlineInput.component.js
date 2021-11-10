@@ -22,7 +22,7 @@ const UnderlineInput = props => {
             </View>
             {
                 props.isFixedText ?
-                    <Text style={{ ...styles(props).textInput, paddingVertical: "1%" }}>
+                    <Text style={{ ...styles(props).textInput, paddingVertical: "2%" }}>
                         {props.fixedTextValue}
                     </Text> :
                     <TextInputMask

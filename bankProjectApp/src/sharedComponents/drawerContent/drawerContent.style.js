@@ -25,7 +25,8 @@ const styles = StyleSheet.create({
     },
     itemLabel: {
         color: colors.WHITE,
-        fontSize: 10
+        fontWeight: "bold",
+        fontSize: 12
     }
 })
 

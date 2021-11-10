@@ -132,6 +132,13 @@ const Deposits = props => {
                     data={state.filteredList}
                 ></TransactionsListMemo>
             </View>
+            <Icon
+                onPress={() => props.navigation.navigate("RegisterDeposit")}
+                name="plus-circle"
+                size={50}
+                color={colors.BLUE_1}
+                style={{ position: "absolute", right: 20, bottom: 20 }}
+            ></Icon>
         </View>
     )
 }
