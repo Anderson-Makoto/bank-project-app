@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import { View, StyleSheet, FlatList, TouchableOpacity, Text } from "react-native"
 import PropTypes from "prop-types"
 import { colors } from "../../helpers/constants"
@@ -52,6 +52,7 @@ const styles = () => {
         },
         listView: {
             width: "100%",
+            height: 40,
             paddingHorizontal: "5%",
             flexDirection: "row",
             justifyContent: "space-between",
@@ -86,4 +87,4 @@ const styles = () => {
     })
 }
 
-export default TransactionsList
+export default TransactionsListMemo = memo(TransactionsList)
