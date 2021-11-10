@@ -10,6 +10,9 @@ import styles from "./home.style"
 import MonthPicker from "react-native-month-year-picker"
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5"
 import { useIsFocused } from "@react-navigation/native"
+import Header from "../../sharedComponents/header/header.component"
+import TransactionsListMemo from "../../sharedComponents/transactionsList/transactionsList.component"
+import { statement } from "@babel/template"
 var moment = require('moment')
 
 const Home = props => {
@@ -25,7 +28,7 @@ const Home = props => {
 
     useEffect(() => {
         if (isFocused) __loadData(state, setState)
-    }, [isFocused])
+    }, [isFocused, state.date])
 
     const allowDatePicker = () => {
         setState({
@@ -38,43 +41,40 @@ const Home = props => {
         setState({
             ...state,
             showDatePicker: false,
-            date: date || state.date
+            date: new Date(date) || state.date
         })
     }
     return (
         <View style={styles.container}>
             <View style={styles.title}>
-                <TouchableOpacity
-                    style={{ width: "20%", justifyContent: "center", alignItems: "center" }}
+                <Header
                     onPress={() => props.navigation.openDrawer()}
-                >
-                    <FontAwesome5
-                        name="bars"
-                        size={40}
-                        color={colors.WHITE}
-                    ></FontAwesome5>
-                </TouchableOpacity>
-                <View style={{ width: "80%", justifyContent: "center", alignItems: "center" }}>
-                    <Text style={{ marginRight: "32%", color: colors.WHITE, fontSize: 20 }}>
-                        BNB Bank
-                    </Text>
-                </View>
-
+                    iconColor={colors.WHITE}
+                    titleColor={colors.BLUE_2}
+                    titleText="BNB Bank"
+                    textColor={colors.WHITE}
+                ></Header>
             </View>
-            <View style={{ ...styles.lineView, backgroundColor: colors.BLUE_2 }}>
-
-                <View style={{ marginLeft: "5%" }}>
-                    <Text style={{ ...styles.text1, color: colors.WHITE }}>
+            <View style={{ ...styles.dataView, backgroundColor: colors.BLUE_2 }}>
+                <View style={styles.leftContent}>
+                    <Text style={{ ...styles.label, color: colors.WHITE }}>
                         Current balance
                     </Text>
                     <Text style={styles.balanceValue}>
                         ${String((parseFloat(state.balance).toFixed(2))).replace(".", ",")}
                     </Text>
                 </View>
-                <View style={{ marginRight: "5%" }}>
-                    <Text onPress={() => allowDatePicker()} style={styles.dateText}>
-                        {monthNames[state.date.getMonth()]}, {state.date.getFullYear()} {String.fromCharCode(31)}
-                    </Text>
+                <View style={styles.rightContent}>
+                    <View style={styles.dateView}>
+                        <Text onPress={() => allowDatePicker()} style={styles.dateText}>
+                            {moment(state.date).format("MMMM, YYYY")}
+                        </Text>
+                        <FontAwesome5
+                            name="chevron-down"
+                            size={15}
+                            color={colors.WHITE}
+                        ></FontAwesome5>
+                    </View>
                     {state.showDatePicker &&
                         <MonthPicker
                             onChange={(event, date) => selectDate(event, date)}
@@ -85,87 +85,72 @@ const Home = props => {
                         ></MonthPicker>}
                 </View>
             </View>
-            <View style={{ ...styles.lineView, backgroundColor: colors.BLUE_3 }}>
-                <View style={{ marginLeft: "5%" }}>
-                    <Text style={{ ...styles.text1, color: colors.BLUE_1 }}>
+            <View style={{ ...styles.dataView, backgroundColor: colors.BLUE_3 }}>
+                <View>
+                    <Text style={{ ...styles.label, color: colors.BLUE_1 }}>
                         Incomes
                     </Text>
-                    <Text style={{ ...styles.balanceValue, color: colors.BLUE_1 }}>
+                    <Text style={{ ...styles.incomesAndExpensesValues, color: colors.BLUE_1 }}>
                         ${String((parseFloat(state.incomes).toFixed(2))).replace(".", ",")}
                     </Text>
                 </View>
-                <View style={{ marginRight: "5%" }}>
-                    <TouchableOpacity
-                        style={{ justifyContent: "center", alignItems: "center" }}
-                        onPress={() => props.navigation.navigate("RegisterDeposit")}
-                    >
-                        <FontAwesome5
-                            name="plus"
-                            size={25}
-                            color={colors.BLUE_1}
-                        ></FontAwesome5>
-                        <Text style={{ ...styles.text1, color: colors.BLUE_1, fontWeight: "normal" }}>
-                            DEPOSIT A CHECK
-                        </Text>
-                    </TouchableOpacity>
+                <View>
+                    <View style={styles.rightContent}>
+                        <TouchableOpacity
+                            style={{ justifyContent: "center", alignItems: "center" }}
+                            onPress={() => props.navigation.navigate("RegisterDeposit")}
+                        >
+                            <FontAwesome5
+                                name="plus"
+                                size={15}
+                                color={colors.BLUE_1}
+                            ></FontAwesome5>
+                            <Text style={{ ...styles.text1, color: colors.BLUE_1 }}>
+                                DEPOSIT A CHECK
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
-            <View style={{ ...styles.lineView, backgroundColor: colors.BLUE_4 }}>
-                <View style={{ marginLeft: "5%" }}>
-                    <Text style={{ ...styles.text1, color: colors.BLUE_1 }}>
+            <View style={{ ...styles.dataView, backgroundColor: colors.BLUE_4 }}>
+                <View>
+                    <Text style={{ ...styles.label, color: colors.BLUE_1 }}>
                         Expenses
                     </Text>
-                    <Text style={{ ...styles.balanceValue, color: colors.BLUE_1 }}>
+                    <Text style={{ ...styles.incomesAndExpensesValues, color: colors.BLUE_1 }}>
                         ${String((parseFloat(state.expenses).toFixed(2))).replace(".", ",")}
                     </Text>
                 </View>
-                <View style={{ marginRight: "10.5%" }}>
-                    <TouchableOpacity
-                        style={{ justifyContent: "center", alignItems: "center" }}
-                        onPress={() => props.navigation.navigate("RegisterPurchase")}
-                    >
-                        <FontAwesome5
-                            name="plus"
-                            size={25}
-                            color={colors.BLUE_1}
-                        ></FontAwesome5>
-                        <Text style={{ ...styles.text1, color: colors.BLUE_1, fontWeight: "normal" }}>
-                            PURCHASE
-                        </Text>
-                    </TouchableOpacity>
+                <View>
+                    <View style={styles.rightContent}>
+                        <TouchableOpacity
+                            style={{ justifyContent: "center", alignItems: "center" }}
+                            onPress={() => props.navigation.navigate("RegisterPurchase")}
+                        >
+                            <FontAwesome5
+                                name="plus"
+                                size={15}
+                                color={colors.BLUE_1}
+                            ></FontAwesome5>
+                            <Text style={{ ...styles.text1, color: colors.BLUE_1 }}>
+                                PURCHASE
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
-            <View style={{ ...styles.lineView }}>
-                <View style={{ marginLeft: "5%" }}>
+            <View style={styles.dataView}>
+                <View>
                     <Text style={{ ...styles.text1, color: colors.BLUE_1 }}>
                         Transactions
                     </Text>
                 </View>
             </View>
             <View style={styles.listView}>
-                <FlatList
-                    style={{ height: "100%", width: "100%" }}
+                <TransactionsListMemo
+                    onPress={() => { }}
                     data={state.transactionsList}
-                    renderItem={({ item }) => {
-                        return (
-                            <View style={{ ...styles.listItemLineView, borderBottomWidth: 1, borderColor: colors.BLUE_2 }}>
-                                <View style={{ marginLeft: "5%" }}>
-                                    <Text style={{ ...styles.text1, color: colors.BLUE_1 }}>
-                                        {(item.description).replace(new RegExp(`"`, 'g'), "")}
-                                    </Text>
-                                    <Text style={{ fontSize: 12, color: colors.BLUE_1 }}>
-                                        {moment(item.updated_at).format("M/D/YYYY, hh:mm a")}
-                                    </Text>
-                                </View>
-                                <View style={{ marginRight: "5%" }}>
-                                    <Text style={{ fontSize: 15, color: item.key.includes("deposit") ? colors.BLUE_1 : colors.PURCHASE }}>
-                                        {item.key.includes("purchase") ? "-" : null}${String((parseFloat(item.value).toFixed(2))).replace(".", ",")}
-                                    </Text>
-                                </View>
-                            </View>
-                        )
-                    }}
-                ></FlatList>
+                ></TransactionsListMemo>
             </View>
         </View >
     )
@@ -208,13 +193,15 @@ const __createKeys = (approvedDeposits, purchases) => {
     approvedDeposits = approvedDeposits.map(val => {
         return {
             ...val,
-            key: "deposit" + String(val.id)
+            key: "d" + String(val.id),
+            itemTitle: val.description
         }
     })
     purchases.purchasesList = purchases.purchasesList.map(val => {
         return {
             ...val,
-            key: "purchase" + String(val.id)
+            key: "p" + String(val.id),
+            itemTitle: val.description
         }
     })
 

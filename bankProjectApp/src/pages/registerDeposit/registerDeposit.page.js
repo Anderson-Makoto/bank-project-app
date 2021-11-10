@@ -12,6 +12,9 @@ import { amountValidation, descriptionValidation } from "../../helpers/inputVali
 import { registerDepositPending } from "../../routes/deposit.route"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { getBalance } from "../../routes/user.route"
+import UnderlineInputMemo from "../../sharedComponents/underlineInput/underlineInput.component"
+import Header from "../../sharedComponents/header/header.component"
+import SubHeaderMemo from "../../sharedComponents/subHeader/subHeader.component"
 
 const RegisterDeposit = props => {
     const [state, setState] = useState({
@@ -47,68 +50,56 @@ const RegisterDeposit = props => {
         const isInputValid = __validateInput(state)
 
         if (isInputValid) {
-            confirmationAlert("Deposit", "Confirm deposit?", () => __callRegisterDepositRoute(state, props.navigation))
+            confirmationAlert("Deposit", "Confirm deposit?", () =>
+                __callRegisterDepositRoute(state, props.navigation))
         }
     }
 
     return (
         <View style={styles.container}>
             <View style={styles.title}>
-                <TouchableOpacity
-                    style={{ width: "20%", justifyContent: "center", alignItems: "center" }}
+                <Header
                     onPress={() => props.navigation.openDrawer()}
-                >
-                    <FontAwesome5Icon
-                        name="bars"
-                        size={40}
-                        color={colors.BLUE_1}
-                    ></FontAwesome5Icon>
-                </TouchableOpacity>
-                <View style={{ width: "80%", justifyContent: "center", alignItems: "center" }}>
-                    <Text style={{ marginRight: "25%", color: colors.BLUE_1, fontSize: 15 }}>
-                        CHECK DEPOSIT
-                    </Text>
-                </View>
+                    iconColor={colors.BLUE_1}
+                    titleColor={colors.BLUE_4}
+                    titleText="CHECK DEPOSIT"
+                    textColor={colors.BLUE_1}
+                ></Header>
             </View>
-            <View style={{ ...styles.lineView, backgroundColor: colors.BLUE_4 }}>
-
-                <View>
-                    <Text style={{ ...styles.text1, color: colors.BLUE_2 }}>
-                        Current balance
-                    </Text>
-                    <Text style={styles.balanceValue}>
-                        ${String((parseFloat(state.balance).toFixed(2))).replace(".", ",")}
-                    </Text>
-                </View>
-            </View>
-            <View style={styles.amountView}>
-                <Text style={{ color: colors.BLUE_2, fontSize: 10 }}>
-                    AMOUNT
-                </Text>
-                <View style={styles.input}>
-                    <TextInputMask
-                        onChangeText={val => setState({ ...state, amount: val.replace("$ ", "") })}
-                        mask={"$ [999999999],[99]"}
-                        style={styles.maskedInputText}
-                        keyboardType="decimal-pad"
-                    >
-
-                    </TextInputMask>
-                    <Text style={{ fontSize: 12, color: colors.BLUE_1, width: "20%", fontSize: 12 }}>
+            <SubHeaderMemo
+                hasTwoValues={true}
+                label="CURRENT BALANCE"
+                value={`$${String((parseFloat(state.balance).toFixed(2))).replace(".", ",")}`}
+            ></SubHeaderMemo>
+            <View style={styles.valuesView}>
+                <View style={styles.amountView}>
+                    <View style={{ height: "100%", width: "80%" }}>
+                        <UnderlineInputMemo
+                            iconName="money-bill-wave"
+                            label="AMOUNT"
+                            onChangeText={val => setState({ ...state, amount: val.replace("$ ", "") })}
+                            mask={"$ [999999999],[99]"}
+                            keyboardType="decimal-pad"
+                            isFixedText={false}
+                        ></UnderlineInputMemo>
+                    </View>
+                    <Text style={{ fontSize: 12, color: colors.BLUE_1, width: "20%" }}>
                         USD
                     </Text>
                 </View>
                 <Text style={{ color: colors.BLUE_2, fontSize: 10 }}>
                     *The money will be deposited in your account once the check is accepted"
                 </Text>
-                <Text style={{ color: colors.BLUE_2, fontSize: 10, marginTop: "5%" }}>
-                    DESCRIPTION
-                </Text>
-                <TextInput
-                    onChangeText={val => setState({ ...state, description: val })}
-                    maxLength={20}
-                    style={styles.InputText}
-                ></TextInput>
+                <View style={{ height: "33%", width: "100%" }}>
+                    <UnderlineInputMemo
+                        iconName="star"
+                        label="DESCRIPTION"
+                        onChangeText={val => setState({ ...state, description: val })}
+                        mask={""}
+                        keyboardType="default"
+                        isFixedText={false}
+                    ></UnderlineInputMemo>
+                </View>
             </View>
             <View style={styles.imageView}>
                 <TouchableOpacity style={styles.imagePicker} onPress={() => askForPermission()}>

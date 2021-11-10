@@ -60,14 +60,14 @@ const styles = () => {
         },
         leftContent: {
             flexDirection: "column",
-            flex: 2,
+            flex: 1.7,
             height: "100%",
             justifyContent: "space-around",
-            alignItems: "flex-start"
+            alignItems: "flex-start",
         },
         rightContent: {
             flexDirection: "row",
-            flex: 1,
+            flex: 1.3,
             height: "100%",
             justifyContent: "flex-end",
             alignItems: "center"
@@ -82,7 +82,7 @@ const styles = () => {
             color: colors.BLUE_1
         },
         value: {
-            fontSize: 15
+            fontSize: 15,
         }
     })
 }

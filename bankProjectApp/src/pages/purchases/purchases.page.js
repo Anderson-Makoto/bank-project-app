@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { View, Text } from "react-native"
+import { View } from "react-native"
 import { colors } from "../../helpers/constants"
 import Header from "../../sharedComponents/header/header.component"
 import styles from "./purchases.styles"
@@ -10,6 +10,7 @@ import TransactionsListMemo from "../../sharedComponents/transactionsList/transa
 import { useIsFocused } from "@react-navigation/native"
 import { getAllPurchasesByMonth } from "../../routes/purchase.route"
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import SubHeaderMemo from "../../sharedComponents/subHeader/subHeader.component"
 
 const Purchases = props => {
     const isFocused = useIsFocused()
@@ -23,7 +24,7 @@ const Purchases = props => {
         if (isFocused) {
             getData()
         }
-    }, [isFocused])
+    }, [isFocused, state.date])
 
     const getData = async () => {
         const token = await __getToken()
@@ -40,6 +41,14 @@ const Purchases = props => {
         })
     }
 
+    const selectDate = (event, date) => {
+        setState({
+            ...state,
+            showDatePicker: false,
+            date: date ? new Date(date) : state.date
+        })
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -51,33 +60,33 @@ const Purchases = props => {
                     textColor={colors.BLUE_1}
                 ></Header>
             </View>
-            <View style={styles.dateView}>
-                <Text
-                    style={styles.dateText}
-                >
-                    {moment(state.date).format("MMMM, YYYY")}
-                </Text>
-                <Icon
-                    name="chevron-down"
-                    size={15}
-                    color={colors.BLUE_1}
-                    solid
-                ></Icon>
-                {state.showDatePicker &&
-                    <MonthPicker
-                        onChange={(event, date) => selectDate(event, date)}
-                        value={state.date}
-                        minimumDate={new Date(2021, 1)}
-                        maximumDate={new Date(2050, 12)}
-                        locale="eua"
-                    ></MonthPicker>
-                }
-            </View>
+            <SubHeaderMemo
+                hasTwoValues={false}
+                onPress={() => setState({ ...state, showDatePicker: true })}
+                date={moment(state.date).format("MMMM, YYYY")}
+            ></SubHeaderMemo>
+            {state.showDatePicker &&
+                <MonthPicker
+                    onChange={(event, date) => selectDate(event, date)}
+                    value={state.date}
+                    minimumDate={new Date(2021, 1)}
+                    maximumDate={new Date(2050, 12)}
+                    locale="eua"
+                ></MonthPicker>
+            }
             <View style={styles.list}>
                 <TransactionsListMemo
                     data={__adjustDataToList(state.data)}
                 ></TransactionsListMemo>
             </View>
+
+            <Icon
+                onPress={() => props.navigation.navigate("RegisterPurchase")}
+                name="plus-circle"
+                size={50}
+                color={colors.BLUE_1}
+                style={{ position: "absolute", right: 20, bottom: 20 }}
+            ></Icon>
 
         </View>
     )
