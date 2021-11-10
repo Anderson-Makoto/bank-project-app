@@ -4,7 +4,7 @@ import { Alert } from "react-native"
 const simpleAlert = (title, msg, func = () => { }) => {
     Alert.alert(
         title,
-        msg,
+        msg ? msg : "Could not complete this operation",
         [
             {
                 text: "Ok",

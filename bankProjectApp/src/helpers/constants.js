@@ -17,6 +17,6 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
 ];
 
-const BASE_URL = "http://10.0.2.2:3000/api"
+const BASE_URL = "http://192.168.18.5:8000/api"
 
 export { colors, BASE_URL, depositStatus, monthNames }
