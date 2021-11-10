@@ -20,9 +20,14 @@ const styles = StyleSheet.create({
         color: colors.WHITE,
     },
     content: {
-        color: colors.BLUE_1,
-        fontSize: 30,
-        height: "80%"
+        flex: 6,
+        backgroundColor: colors.BLUE_1,
+        width: "100%",
+        paddingLeft: "10%"
+    },
+    itemLabel: {
+        color: colors.WHITE,
+        fontSize: 15
     }
 })
 

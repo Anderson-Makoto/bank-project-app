@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     dateText: {
         color: colors.BLUE_1,
         fontSize: 15
-    }
+    },
 })
 
 export default styles

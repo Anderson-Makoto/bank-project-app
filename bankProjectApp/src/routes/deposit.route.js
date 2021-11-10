@@ -8,6 +8,7 @@ const getApprovedDepositsByMonth = (
     month,
     token
 ) => {
+
     return axios.post(BASE_URL + "/deposit/getUserDepositsByStatusAndByMonth", {
         user_fk,
         deposit_status_fk,
