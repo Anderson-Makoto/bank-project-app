@@ -6,7 +6,7 @@ import styles from "./purchases.styles"
 import MonthPicker from "react-native-month-year-picker"
 import moment from "moment"
 import Icon from "react-native-vector-icons/FontAwesome5"
-import TransactionsList from "../../sharedComponents/transactionsList/transactionsList.component"
+import TransactionsListMemo from "../../sharedComponents/transactionsList/transactionsList.component"
 import { useIsFocused } from "@react-navigation/native"
 import { getAllPurchasesByMonth } from "../../routes/purchase.route"
 import AsyncStorage from "@react-native-async-storage/async-storage"
@@ -53,7 +53,6 @@ const Purchases = props => {
             </View>
             <View style={styles.dateView}>
                 <Text
-                    onPress={() => { }}
                     style={styles.dateText}
                 >
                     {moment(state.date).format("MMMM, YYYY")}
@@ -75,9 +74,9 @@ const Purchases = props => {
                 }
             </View>
             <View style={styles.list}>
-                <TransactionsList
+                <TransactionsListMemo
                     data={__adjustDataToList(state.data)}
-                ></TransactionsList>
+                ></TransactionsListMemo>
             </View>
 
         </View>
@@ -92,7 +91,6 @@ const __adjustDataToList = data => {
             key: "p" + item.id
         })
     })
-    console.log(data)
     return data
 }
 

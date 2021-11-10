@@ -129,7 +129,6 @@ const RegisterPurchase = props => {
 const __registerPurchase = async (state, navigation) => {
     const token = await __getToken()
     const id = await __getUserId()
-    console.log(state, token, id)
     __verifyIfInputIsValid(state)
     registerPurchase(
         id,

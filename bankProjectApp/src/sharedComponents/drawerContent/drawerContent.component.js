@@ -3,10 +3,10 @@ import React, { useState, useEffect } from "react"
 import { View, Text } from "react-native"
 import { Drawer } from "react-native-paper"
 import styles from "./drawerContent.style"
-import Icon from "react-native-vector-icons/MaterialCommunityIcons"
-import { colors } from "../../helpers/constants"
-import { simpleAlert } from "../../helpers/alert"
+import Icon from "react-native-vector-icons/FontAwesome5"
+import { confirmationAlert, simpleAlert } from "../../helpers/alert"
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import { userLogout } from "../../routes/user.route"
 
 const DrawerContent = props => {
     const [state, setState] = useState({
@@ -22,6 +22,21 @@ const DrawerContent = props => {
             })
         })
     })
+
+    const logout = () => {
+        AsyncStorage.getItem("userData").then(userData => {
+            const id = JSON.parse(userData).data.user.id
+            const token = JSON.parse(userData).data.token
+
+            userLogout(id, token).then(() => {
+                AsyncStorage.clear()
+                props.navigation.reset({
+                    index: 0,
+                    routes: [{ name: "Register" }]
+                })
+            }).catch(err => simpleAlert("Error", err.description))
+        })
+    }
 
     return (
         <View style={styles.container}>
@@ -86,6 +101,11 @@ const DrawerContent = props => {
                     label="HELP"
                     labelStyle={styles.itemLabel}
                     onPress={() => simpleAlert("Attention", "Out of Scope")}
+                ></DrawerItem>
+                <DrawerItem
+                    label="LOGOUT"
+                    labelStyle={styles.itemLabel}
+                    onPress={() => confirmationAlert("Logout", "Are you sure you wanto to logout?", () => logout())}
                 ></DrawerItem>
             </Drawer.Section>
         </View>

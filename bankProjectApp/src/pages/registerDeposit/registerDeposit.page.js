@@ -142,7 +142,6 @@ const RegisterDeposit = props => {
 const __getBalance = async setState => {
     userData = await __getUserData()
     return getBalance(userData.token).then(getBalanceRes => {
-        console.log(getBalanceRes)
         setState({
             ...setState,
             balance: getBalanceRes.data

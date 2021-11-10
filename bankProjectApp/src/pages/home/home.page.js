@@ -245,7 +245,7 @@ const __calculateIncomesAndExpenses = (approvedDeposits, purchases) => {
 const __getApprovedDepositsByMonth = (state, userData) => {
     return getApprovedDepositsByMonth(
         userData.data.user.id,
-        depositStatus.ACCEPTED,
+        [depositStatus.ACCEPTED],
         state.date.getFullYear(),
         state.date.getMonth() + 1,
         userData.data.token
