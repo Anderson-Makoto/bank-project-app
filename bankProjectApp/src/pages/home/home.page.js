@@ -12,7 +12,7 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5"
 import { useIsFocused } from "@react-navigation/native"
 import Header from "../../sharedComponents/header/header.component"
 import TransactionsListMemo from "../../sharedComponents/transactionsList/transactionsList.component"
-import { statement } from "@babel/template"
+
 var moment = require('moment')
 
 const Home = props => {
@@ -38,6 +38,7 @@ const Home = props => {
     }
 
     const selectDate = (event, date) => {
+        if (event == "dismissedAction") return
         setState({
             ...state,
             showDatePicker: false,
@@ -190,21 +191,22 @@ const __getSortedTransactions = (approvedDeposits, purchases) => {
 }
 
 const __createKeys = (approvedDeposits, purchases) => {
-    approvedDeposits = approvedDeposits.map(val => {
-        return {
-            ...val,
-            key: "d" + String(val.id),
-            itemTitle: val.description
-        }
-    })
-    purchases.purchasesList = purchases.purchasesList.map(val => {
-        return {
-            ...val,
-            key: "p" + String(val.id),
-            itemTitle: val.description
-        }
-    })
-
+    if (approvedDeposits) {
+        approvedDeposits = approvedDeposits.map(val => {
+            return {
+                ...val,
+                key: "d" + String(val.id),
+                itemTitle: val.description
+            }
+        })
+        purchases.purchasesList = purchases.purchasesList.map(val => {
+            return {
+                ...val,
+                key: "p" + String(val.id),
+                itemTitle: val.description
+            }
+        })
+    }
     return { approvedDeposits, purchases }
 }
 
@@ -220,12 +222,15 @@ const __createSortByDate = (a, b) => {
 
 const __calculateIncomesAndExpenses = (approvedDeposits, purchases) => {
     let income = 0, expenses = 0
-    approvedDeposits = approvedDeposits.map(val => {
-        income += parseFloat(val.value)
-    })
-    purchases.purchasesList.map(val => {
-        expenses += parseFloat(val.value)
-    })
+    if (approvedDeposits) {
+        approvedDeposits = approvedDeposits.map(val => {
+            income += parseFloat(val.value)
+        })
+        purchases.purchasesList.map(val => {
+            expenses += parseFloat(val.value)
+        })
+    }
+
     return { income, expenses }
 }
 
@@ -234,7 +239,7 @@ const __getApprovedDepositsByMonth = (state, userData) => {
         userData.data.user.id,
         [depositStatus.ACCEPTED],
         state.date.getFullYear(),
-        state.date.getMonth() + 1,
+        state.date.getMonth(),
         userData.data.token
     ).then(getApprovedDepositsRes => {
         return getApprovedDepositsRes.data

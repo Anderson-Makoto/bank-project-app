@@ -62,7 +62,10 @@ const DrawerContent = props => {
                     labelStyle={styles.itemLabel}
                     onPress={() => state.isAdmin ?
                         simpleAlert("Attention", "You need to be a customer to access this page") :
-                        props.navigation.navigate("Home")
+                        props.navigation.reset({
+                            index: 0,
+                            routes: [{ name: "Home" }]
+                        })
                     }
                 ></DrawerItem>
                 <DrawerItem
@@ -95,7 +98,10 @@ const DrawerContent = props => {
                     labelStyle={styles.itemLabel}
                     onPress={() => state.isAdmin ?
                         simpleAlert("Attention", "You need to be a customer to access this page") :
-                        props.navigation.navigate("Expenses")
+                        props.navigation.reset({
+                            index: 0,
+                            routes: [{ name: "Expenses" }]
+                        })
                     }
                 ></DrawerItem>
                 <DrawerItem
@@ -113,7 +119,10 @@ const DrawerContent = props => {
                     labelStyle={styles.itemLabel}
                     onPress={() => state.isAdmin ?
                         simpleAlert("Attention", "You need to be a customer to access this page") :
-                        props.navigation.navigate("Checks")
+                        props.navigation.reset({
+                            index: 0,
+                            routes: [{ name: "Checks" }]
+                        })
                     }
                 ></DrawerItem>
                 <DrawerItem

@@ -35,6 +35,24 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: colors.BLUE_1
     },
+    modal: {
+        height: 800,
+        width: 300,
+        paddingHorizontal: "20%",
+        paddingVertical: "20%",
+        backgroundColor: colors.WHITE
+    },
+    modalButton: {
+        height: "20%",
+        width: "80%",
+        backgroundColor: colors.BLUE_1,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    modalText: {
+        fontSize: 12,
+        color: colors.WHITE
+    }
 })
 
 export default styles
