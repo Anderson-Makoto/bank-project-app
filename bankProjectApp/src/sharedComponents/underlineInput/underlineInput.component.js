@@ -30,6 +30,7 @@ const UnderlineInput = props => {
                         mask={props.mask}
                         style={styles(props).textInput}
                         keyboardType={props.keyboardType}
+                        autoCapitalize="none"
                     ></TextInputMask>
             }
 

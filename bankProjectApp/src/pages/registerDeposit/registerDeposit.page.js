@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react"
 import { View, TouchableOpacity, Text, ImageBackground, TextInput } from "react-native"
-import TextInputMask from "react-native-text-input-mask"
-import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5"
 import { colors } from "../../helpers/constants"
 import styles from "./registerDeposit.style"
 import { launchImageLibrary } from 'react-native-image-picker';
@@ -159,7 +157,7 @@ const __validateInput = state => {
     return true
 }
 
-const __callRegisterDepositRoute = async (state, navigation) => {
+const __callRegisterDepositRoute = async (state, navigation, props) => {
     const userData = await __getUserData()
 
     registerDepositPending(
@@ -170,7 +168,10 @@ const __callRegisterDepositRoute = async (state, navigation) => {
         userData.token
     ).then(registerDepositRes => {
         simpleAlert("Success!", "The deposit will be analyzed by the admin")
-
+        props.navigation.reset({
+            index: 0,
+            routes: [{ name: "Home" }]
+        })
     }).catch(err => {
         simpleAlert("Error", err.description)
         navigation.goBack()

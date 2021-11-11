@@ -70,7 +70,7 @@ const Register = props => {
         <View style={styles.container}>
             <View style={styles.title}>
                 <Text style={styles.titleText}>
-                    BNB Bank Test
+                    BNB Bank
                 </Text>
             </View>
             <View style={styles.content}>
