@@ -45,7 +45,7 @@ const Deposits = props => {
             userData.user.id,
             [depositStatus.ACCEPTED, depositStatus.PENDING, depositStatus.REJECTED],
             state.date.getFullYear(),
-            state.date.getMonth() + 1,
+            state.date.getMonth(),
             userData.token
         ).then(getAllDepositsRes => {
 

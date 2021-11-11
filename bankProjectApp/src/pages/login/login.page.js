@@ -67,7 +67,7 @@ const Login = props => {
                 <CustomButton
                     height="10%"
                     width="85%"
-                    text="SIGN UP"
+                    text="SIGN IN"
                     onPress={loginUser}
                 >
 

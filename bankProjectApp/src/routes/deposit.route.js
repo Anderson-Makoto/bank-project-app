@@ -36,7 +36,7 @@ const registerDepositPending = (
     let formData = new FormData()
 
     formData.append("user_fk", user_fk)
-    formData.append("value", parseFloat(value))
+    formData.append("value", parseFloat(value).toFixed(2))
     formData.append("description", description)
     formData.append("image", {
         uri: image.uri,

@@ -1,50 +1,58 @@
 import React, { useState, useEffect } from "react"
-import { View, Text, TouchableOpacity, FlatList, Image } from "react-native"
+import { View, Text, TouchableOpacity, FlatList } from "react-native"
 import styles from "./adminHome.style"
-import Icon from "react-native-vector-icons/FontAwesome5"
 import { colors } from "../../helpers/constants"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { getAllPendingDeposits } from "../../routes/deposit.route"
 import { useIsFocused } from "@react-navigation/native"
+import Header from "../../sharedComponents/header/header.component"
+import { Picker } from "@react-native-picker/picker"
 var moment = require("moment")
 
 const AdminHome = props => {
     const isFocused = useIsFocused()
     const [state, setState] = useState({
         pendingList: [],
-        filterBy: "date"
+        filterBy: "date",
+        showPicker: false
     })
 
     useEffect(() => {
         if (isFocused) __getPendentDeposits(state, setState)
     }, [isFocused])
 
+    const filterList = () => {
+
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.title}>
-                <TouchableOpacity
-                    style={{ width: "10%", justifyContent: "center", alignItems: "center" }}
+                <Header
                     onPress={() => props.navigation.openDrawer()}
-                >
-                    <Icon
-                        name="bars"
-                        size={20}
-                        color={colors.BLUE_1}
-                    ></Icon>
-                </TouchableOpacity>
-                <View style={{ width: "80%", justifyContent: "center", alignItems: "center" }}>
-                    <Text style={{ color: colors.BLUE_1, fontSize: 15 }}>
-                        CHECKS CONTROL
-                    </Text>
-                </View>
-                <TouchableOpacity style={{ width: "10%", justifyContent: "center", alignItems: "center" }}>
-                    <Icon
-                        name="filter"
-                        color={colors.BLUE_1}
-                        size={20}
-                    ></Icon>
-                </TouchableOpacity>
+                    iconColor={colors.BLUE_1}
+                    titleColor={colors.BLUE_4}
+                    titleText="CHECKS CONTROL"
+                    textColor={colors.BLUE_1}
+                    optionsIconName={state.showPicker ? null : "filter"}
+                    optionsOnPress={() => setState({ ...state, showPicker: true })}
+                ></Header>
+                {
+                    state.showPicker ?
+                        <Picker
+                            mode="dropdown"
+                            style={{ position: "absolute", right: 0, top: 0, height: 50, width: 50 }}
+                            selectedValue={state.filterBy}
+                            onValueChange={val => __filterData(state, setState, val)}
+                        >
+                            <Picker.Item label="username" value="username" />
+                            <Picker.Item label="date" value="updated_at" />
+                            <Picker.Item label="amount" value="value" />
+                        </Picker> :
+                        null
+                }
             </View>
+
             <View style={styles.content}>
                 <FlatList
                     data={state.pendingList}
@@ -83,6 +91,25 @@ const __getPendentDeposits = async (state, setState) => {
             pendingList: __createItemKey(getAllPendingsRes.data)
         })
     })
+}
+
+const __filterData = (state, setState, key) => {
+    setState({
+        ...state,
+        showPicker: false,
+        filterBy: key,
+        pendingList: state.pendingList.sort((a, b) => __createSort(a, b, key))
+    })
+}
+
+const __createSort = (a, b, key) => {
+    if (a[key] > b[key]) {
+        return 1;
+    }
+    if (a[key] < b[key]) {
+        return -1;
+    }
+    return 0;
 }
 
 const __createItemKey = depositsList => {

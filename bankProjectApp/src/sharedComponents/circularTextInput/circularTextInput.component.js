@@ -12,6 +12,7 @@ const CircularTextInput = props => {
             keyboardType={props.type}
             onChangeText={props.onChangeText}
             secureTextEntry={props.password ? props.password : false}
+            autoCapitalize="none"
         >
 
         </TextInput>

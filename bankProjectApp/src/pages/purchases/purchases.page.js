@@ -31,7 +31,7 @@ const Purchases = props => {
 
         getAllPurchasesByMonth(
             state.date.getFullYear(),
-            state.date.getMonth() + 1,
+            state.date.getMonth(),
             token
         ).then(getPurchasesRes => {
             setState({

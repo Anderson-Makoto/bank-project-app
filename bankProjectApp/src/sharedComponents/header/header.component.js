@@ -57,14 +57,14 @@ const styles = props => {
             backgroundColor: props.titleColor
         },
         menu: {
-            flex: 1,
+            width: "10%",
             height: "100%",
             justifyContent: "center",
             alignItems: "center"
         },
         title: {
             height: "100%",
-            flex: 8,
+            width: "80%",
             justifyContent: "center",
             alignItems: "center"
         },
@@ -74,7 +74,7 @@ const styles = props => {
             color: props.textColor
         },
         option: {
-            flex: 1,
+            width: "10%",
             height: "100%",
             justifyContent: "center",
             alignItems: "center"
